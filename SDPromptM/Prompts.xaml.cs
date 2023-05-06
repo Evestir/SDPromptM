@@ -14,6 +14,7 @@ using System.Windows.Media.Effects;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 using SDPromptM.src;
 
 namespace SDPromptM
@@ -27,14 +28,8 @@ namespace SDPromptM
         string[] strings = null;
         string[] ImageExtensions = { ".png", ".webp", ".jpg", ".jpeg" };
 
-        public Prompts()
+        private void LoadForm()
         {
-            InitializeComponent();
-
-            this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
-            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
-            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
-
             string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
             if (Directory.Exists(appdata + "\\SDPromptM"))
@@ -77,7 +72,8 @@ namespace SDPromptM
                         CardItem(ImagePath, System.IO.Path.GetFileNameWithoutExtension(file), strings[2], strings[0], strings[1]);
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception ex)
+                {
                     throw;
                 }
 
@@ -88,6 +84,16 @@ namespace SDPromptM
                 NothingToSeeHere.Opacity = 1;
                 Directory.CreateDirectory(appdata + "\\SDPromptM");
             }
+        }
+
+        public Prompts()
+        {
+            InitializeComponent();
+
+            this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
+
+            LoadForm();
         }
 
         public void CardItem(string imagePath, string title, string description, string posprompt, string negprompt)
@@ -143,6 +149,12 @@ namespace SDPromptM
 
             card.Content = grid;
             CardsHolder.Children.Add(card);
+        }
+
+        private void ReloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CardsHolder.Children.Clear();
+            LoadForm();
         }
     }
 }

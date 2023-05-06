@@ -21,7 +21,7 @@
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Image Width="196" Height="140" Source="C:\Windows\System32\PerceptionSimulation\Assets\Pinch.png" Stretch="UniformToFill" />
-                                <Button Grid.Row="0" Margin="0,0,16,-20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryButton}">
+                                <Button Grid.Row="0" Margin="0,0,16,-20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                                     <materialDesign:PackIcon Kind="ArrangeBringForward" />
                                 </Button>
                                 <StackPanel Grid.Row="1" Margin="8,24,8,0">
@@ -34,6 +34,9 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <Button Name="ReloadBtn" Click="ReloadBtn_Click" HorizontalAlignment="Right" Width="34" Height="34" VerticalAlignment="Top" Margin="0 -60 20 0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+            <materialDesign:PackIcon Width='34' Kind="Reload" />
+        </Button>
         <TextBlock Name="NothingToSeeHere" Text="Nothing To See Here!" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Opacity="0" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>
