@@ -100,22 +100,6 @@ namespace SDPromptM
             UseImmersiveDarkMode(hWnd, true);
 
             Showcase();
-
-            string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            if (Directory.Exists(appdata + "\\SDPromptM"))
-            {
-                Functions.log(appdata);
-            }
-            else
-            {
-                Directory.CreateDirectory(appdata + "\\SDPromptM");
-                File.CreateText(appdata + "\\SDPromptM\\logs.txt");
-
-                Thread.Sleep(10);
-
-                Functions.log($"[{DateTime.Now.ToString()}] Created a folder and a log.");
-            }
         }
         private void LinearOpacityPages(int ver)
         {

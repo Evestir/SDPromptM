@@ -23,7 +23,7 @@ namespace SDPromptM
     /// </summary>
     public partial class Prompts : UserControl
     {
-        string[] files = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SDPromptM", "*.cfg");
+        string[] files = null;
         string[] strings = null;
         string[] ImageExtensions = { ".png", ".webp", ".jpg", ".jpeg" };
 
@@ -40,48 +40,53 @@ namespace SDPromptM
             if (Directory.Exists(appdata + "\\SDPromptM"))
             {
                 // get the list of text files in the folder
-
-                foreach (string file in files)
+                try
                 {
-                    try {
-                        strings = File.ReadAllLines(file);
-                    }
-                    catch (Exception){
-                        throw;
-                    }
-
-                    string ImagePath = null;
-
-                    foreach (string extension in ImageExtensions)
+                    files = Directory.GetFiles(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SDPromptM", "*.cfg");
+                    foreach (string file in files)
                     {
-                        string Expath = appdata + "\\SDPromptM\\" + System.IO.Path.GetFileNameWithoutExtension(file) + extension;
-
-                        if (File.Exists(Expath))
+                        try
                         {
-                            ImagePath = Expath;
-                            break;
+                            strings = File.ReadAllLines(file);
+                        }
+                        catch (Exception)
+                        {
+                            SDPromptM.src.Functions.Notify($"⚠️ Failed to read configs.", 1);
+                            throw;
                         }
 
-                        if (ImagePath == null)
+                        string ImagePath = null;
+
+                        foreach (string extension in ImageExtensions)
                         {
-                            ImagePath = new Uri("pack://application:,,,/Images/unavailable.png").ToString();
+                            string Expath = appdata + "\\SDPromptM\\" + System.IO.Path.GetFileNameWithoutExtension(file) + extension;
+
+                            if (File.Exists(Expath))
+                            {
+                                ImagePath = Expath;
+                                break;
+                            }
+
+                            if (ImagePath == null)
+                            {
+                                ImagePath = new Uri("pack://application:,,,/Images/unavailable.png").ToString();
+                            }
                         }
+
+                        // create a card
+                        CardItem(ImagePath, System.IO.Path.GetFileNameWithoutExtension(file), strings[2], strings[0], strings[1]);
                     }
-
-                    // create a card
-                    CardItem(ImagePath, System.IO.Path.GetFileNameWithoutExtension(file), strings[2], strings[0], strings[1]);
                 }
-
-                Functions.log(appdata);
+                catch (Exception ex) {
+                    throw;
+                }
 
                 InitializeComponent();
             }
             else
             {
+                NothingToSeeHere.Opacity = 1;
                 Directory.CreateDirectory(appdata + "\\SDPromptM");
-                File.CreateText(appdata + "\\SDPromptM\\logs.txt");
-
-                Functions.log($"[{DateTime.Now.ToString()}] Created a folder and a log.");
             }
         }
 
@@ -116,21 +121,13 @@ namespace SDPromptM
 
             void Button_Click(object sender, RoutedEventArgs e)
             {
-                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-                if (mainWindow != null)
-                {
-                    mainWindow.Snackbar.MessageQueue?.Enqueue($"ℹ️ Copied The Positive Prompt of {title}.", null, null, null, false, true, TimeSpan.FromSeconds(2));
-                }
+                SDPromptM.src.Functions.Notify($"ℹ️ Copied The Positive Prompt of {title}.", 1);
 
                 Clipboard.SetText(posprompt);
             }
             void Button_MouseRightButtonDown(object sender, RoutedEventArgs e)
             {
-                MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-                if (mainWindow != null)
-                {
-                    mainWindow.Snackbar.MessageQueue?.Enqueue($"ℹ️ Copied The Negative Prompt of {title}.", null, null, null, false, true, TimeSpan.FromSeconds(2));
-                }
+                SDPromptM.src.Functions.Notify($"ℹ️ Copied The Negative Prompt of {title}.", 1);
 
                 Clipboard.SetText(negprompt);
             }

@@ -34,5 +34,6 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
+        <TextBlock Name="NothingToSeeHere" Text="Nothing To See Here!" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Opacity="0" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>
