@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using SDPromptM.src;
 
 namespace SDPromptM
@@ -65,6 +66,29 @@ namespace SDPromptM
             CreationRadio.Click += new RoutedEventHandler(CreationRadio_Click);
         }
 
+        private void Showcase()
+        {
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
+            double x = 0;
+
+            timer.Tick += (s, e) =>
+            {
+                x += 0.05;
+                if (x >= 1)
+                {
+                    timer.Stop();
+                    Rec.Opacity = 0;
+                    Rec.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Rec.Opacity = 1 - x;
+                }
+            };
+
+            timer.Start();
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -74,6 +98,8 @@ namespace SDPromptM
             // Enalbe Dark Mode
             IntPtr hWnd = new WindowInteropHelper(this).EnsureHandle();
             UseImmersiveDarkMode(hWnd, true);
+
+            Showcase();
 
             string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 

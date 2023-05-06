@@ -29,5 +29,6 @@
                         Color="#000000"/>
             </Grid.Effect>
         </Grid>
+        <Rectangle x:Name="Rec" Fill="White" Width="800" Height="600" Margin="0" Opacity="1"/>
     </Grid>
 </Window>
