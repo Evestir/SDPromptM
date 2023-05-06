@@ -1,0 +1,33 @@
+﻿<Window x:Class="SDPromptM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SDPromptM"
+        mc:Ignorable="d"
+        Title="SDPromptM" Height="600" Width="800" Background="#242424" ResizeMode="CanMinimize">
+
+    <Grid>
+        <GroupBox Style="{x:Null}" BorderThickness="0" Foreground="White" Background="#202020" Margin="0 -1 0 510">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton Name="PromptsRadio" Content="Prompts" GroupName="GroupChoiceChip" Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}" IsChecked="True"/>
+                <RadioButton Name="CreationRadio" Content="Create" GroupName="GroupChoiceChip" Style="{StaticResource MaterialDesignChoiceChipSecondaryRadioButton}" />
+            </StackPanel>
+        </GroupBox>
+        <Grid Name="gridContainer" Margin="0 65 0 0">
+            <local:Prompts x:Name="PromptsPage"></local:Prompts>
+            <local:Create x:Name="CreationPage" Visibility="Collapsed" Opacity="0"></local:Create>
+        </Grid>
+        <Grid>
+            <materialDesign:Snackbar VerticalAlignment="Top" Margin="0 0 0 0" HorizontalAlignment="Center" IsActive="False" MessageQueue="{materialDesign:MessageQueue}" Name="Snackbar" Background="#202020" Foreground="#CBE4DE"/>
+            <Grid.Effect>
+                <DropShadowEffect
+                        BlurRadius="20"
+                        Direction="270"
+                        Opacity="0.4"
+                        Color="#000000"/>
+            </Grid.Effect>
+        </Grid>
+    </Grid>
+</Window>

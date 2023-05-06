@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="SDPromptM.Create"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:SDPromptM"
+             mc:Ignorable="d" 
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Margin="0 -20 0 0">
+        <StackPanel VerticalAlignment="Center">
+            <materialDesign:Card Padding="40 193" Margin="380 0 80 0" Foreground="White">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect
+                        BlurRadius="30"
+                        Direction="270"
+                        Opacity="1"
+                        Color="#000000"/>
+                </materialDesign:Card.Effect>
+                <Grid>
+                    <TextBox Name="TitleField" VerticalAlignment="Top" Margin="10 -150 -15 0" materialDesign:HintAssist.Hint="Title" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Name="DescriptionField" VerticalAlignment="Top" Margin="10 -90 -15 0" materialDesign:HintAssist.Hint="Description" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Name="PositivePrompt" VerticalAlignment="Top" Margin="10 -40 -15 0" materialDesign:HintAssist.Hint="Positive Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Name="NegativePrompt" VerticalAlignment="Top" Margin="10 10 -15 0" materialDesign:HintAssist.Hint="Negative Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Button Name="SaveBtn" Margin="10 80 -15 -80" Click="SaveBtn_Click">
+                        <materialDesign:PackIcon Kind="ContentSaveAll" />
+                    </Button>
+                </Grid>
+            </materialDesign:Card>
+        </StackPanel>
+        <StackPanel VerticalAlignment="Center">
+            <materialDesign:Card Width="320" Height="434" Margin="80 0 380 0" Foreground="Black" Background="#2c3333">
+                <materialDesign:Card.Effect>
+                    <DropShadowEffect
+                        BlurRadius="30"
+                        Direction="270"
+                        Opacity="1"
+                        Color="#000000"/>
+                </materialDesign:Card.Effect>
+                <Border Canvas.Left="55" Canvas.Top="30" Width="Auto" Height="434" Margin="0 0 0 0" VerticalAlignment="Top" BorderBrush="#2c3333" BorderThickness=".5" CornerRadius="8">
+                    <Border Name="ReceiverColor" BorderBrush="#2c3333" BorderThickness="0" CornerRadius="8">
+                        <Grid HorizontalAlignment="Center">
+                            <Border Name="Mask" Background="Black" BorderBrush="#2c3333" BorderThickness=".5" CornerRadius="6"/>
+                            <StackPanel>
+                                <Image Name="Placeholder" Source="{StaticResource ImagePlaceHolder}" HorizontalAlignment="Center" Height="433" Width="320" VerticalAlignment="Center" Stretch="UniformToFill">
+                                    <Image.Effect>
+                                        <BlurEffect x:Name="ImageBlurAmount" Radius="0"/>
+                                    </Image.Effect>
+                                </Image>
+                                <StackPanel.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=Mask}" />
+                                </StackPanel.OpacityMask>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Border>
+            </materialDesign:Card>
+        </StackPanel>
+        <TextBlock Name="PlaceHolderText" Opacity="0" Text="Click Here To Select" Foreground="#F5EBE0" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="-298 -10 0 0" IsHitTestVisible="False"/>
+    </Grid>
+</UserControl>
