@@ -155,6 +155,7 @@ namespace SDPromptM
         {
             CardsHolder.Children.Clear();
             LoadForm();
+            SDPromptM.src.Functions.Notify($"ℹ️ Successfully reloaded the page.", 1);
         }
     }
 }

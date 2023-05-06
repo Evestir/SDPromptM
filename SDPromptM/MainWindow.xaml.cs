@@ -73,7 +73,7 @@ namespace SDPromptM
 
             timer.Tick += (s, e) =>
             {
-                x += 0.05;
+                x += 0.1;
                 if (x >= 1)
                 {
                     timer.Stop();
