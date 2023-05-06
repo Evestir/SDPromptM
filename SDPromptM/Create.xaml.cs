@@ -1,23 +1,13 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using SDPromptM.src;
+using System.Windows.Threading;
 
 namespace SDPromptM
 {
@@ -33,7 +23,6 @@ namespace SDPromptM
             Placeholder.MouseEnter += Placeholder_MouseEnter;
             Placeholder.MouseLeave += Placeholder_MouseLeave;
         }
-
         public Create()
         {
             InitializeComponent();
@@ -41,79 +30,64 @@ namespace SDPromptM
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
             RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
         }
-        public void Placeholder_Shadow(bool Cum)
+        private void Placeholder_Shadow(bool Cum)
         {
-            double x = 0;
-
-            bool IsCurOpacityOne = false;
-
-            this.Dispatcher.Invoke(() =>
+            if (Cum)
             {
-                if (Placeholder.Opacity == (double)1)
-                {
-                    IsCurOpacityOne = true;
-                }
-            });
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1) };
+                double x = 0;
 
-            if (Cum && IsCurOpacityOne)
-            {
-                while (x < 0.5)
+                timer.Tick += (s, e) =>
                 {
-                    x += 0.07;
-                    this.Dispatcher.Invoke(() =>
+                    x += 0.1;
+                    if (x >= 0.5)
+                    {
+                        timer.Stop();
+                        Placeholder.Opacity = 0.5;
+                    }
+                    else
                     {
                         PlaceHolderText.Opacity = x * 2;
-                        Placeholder.Opacity = (double)1 - x;
-                        ImageBlurAmount.Radius = x * 10;
-                    });
-                    Thread.Sleep(1);
-                }
-                this.Dispatcher.Invoke(() =>
-                {
-                    Placeholder.Opacity = (float)0.5;
-                });
+                        Placeholder.Opacity = 1 - x;
+                        ImageBlurAmount.Radius = x * 20;
+                    }
+                };
+
+                timer.Start();
             }
-            else if (Cum == false && IsCurOpacityOne == false)
+            else
             {
-                while (x < 0.5)
+                var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(1) };
+                double y = 0;
+
+                timer.Tick += (s, e) =>
                 {
-                    x += 0.07;
-                    this.Dispatcher.Invoke(() =>
+                    y += 0.1;
+                    if (y >= 1)
                     {
-                        PlaceHolderText.Opacity = 1 - x * 2;
-                        Placeholder.Opacity = (double)0.5 + x;
-                        ImageBlurAmount.Radius = 5 - x * 10;
-                    });
-                    Thread.Sleep(1);
-                }
-                this.Dispatcher.Invoke(() =>
-                {
-                    Placeholder.Opacity = (float)1;
-                    ImageBlurAmount.Radius = 0;
-                });
+                        timer.Stop();
+                        Placeholder.Opacity = 1;
+                    }
+                    else
+                    {
+                        PlaceHolderText.Opacity = 1 - y * 2;
+                        Placeholder.Opacity = 0.5 + y;
+                        ImageBlurAmount.Radius = 10 - y * 20;
+                    }
+                };
+
+                timer.Start();
             }
         }
         private void Placeholder_MouseEnter(object sender, RoutedEventArgs e)
         {
             this.Cursor = Cursors.Hand;
-
-            Thread thread = new Thread(delegate ()
-            {
-                Placeholder_Shadow(true);
-            });
-
-            thread.Start();
+            Placeholder_Shadow(true);
         }
         private void Placeholder_MouseLeave(object sender, RoutedEventArgs e)
         {
             this.Cursor = Cursors.Arrow;
-
-            Thread thread = new Thread(delegate ()
-            {
-                Placeholder_Shadow(false);
-            });
-
-            thread.Start();
+            Placeholder_Shadow(false);
         }
         private void Placeholder_Click(object sender, RoutedEventArgs e)
         {
