@@ -19,12 +19,31 @@
                         Color="#000000"/>
                 </materialDesign:Card.Effect>
                 <Grid>
-                    <TextBox Name="TitleField" VerticalAlignment="Top" Margin="10 -150 -15 0" materialDesign:HintAssist.Hint="Title" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Name="DescriptionField" VerticalAlignment="Top" Margin="10 -90 -15 0" materialDesign:HintAssist.Hint="Description" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Name="PositivePrompt" VerticalAlignment="Top" Margin="10 -40 -15 0" materialDesign:HintAssist.Hint="Positive Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <TextBox Name="NegativePrompt" VerticalAlignment="Top" Margin="10 10 -15 0" materialDesign:HintAssist.Hint="Negative Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <TextBox Name="TitleField" VerticalAlignment="Top" Margin="10 -150 -15 0" materialDesign:HintAssist.Hint="Title" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#aeea00"/>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <TextBox Name="DescriptionField" VerticalAlignment="Top" Margin="10 -90 -15 0" materialDesign:HintAssist.Hint="Description" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#ffc7d7"/>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <TextBox Name="PositivePrompt" VerticalAlignment="Top" Margin="10 -40 -15 0" materialDesign:HintAssist.Hint="Positive Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#66b8ff"/>
+                        </TextBox.Resources>
+                    </TextBox>
+                    <TextBox Name="NegativePrompt" VerticalAlignment="Top" Margin="10 10 -15 0" materialDesign:HintAssist.Hint="Negative Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                        <TextBox.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#ff366f"/>
+                        </TextBox.Resources>
+                    </TextBox>
                     <Button Name="SaveBtn" Margin="10 80 -15 -80" Click="SaveBtn_Click">
                         <materialDesign:PackIcon Kind="ContentSaveAll" />
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#aeea00"/>
+                        </Button.Resources>
                     </Button>
                 </Grid>
             </materialDesign:Card>
