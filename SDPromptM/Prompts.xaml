@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              xmlns:local="clr-namespace:SDPromptM"
              mc:Ignorable="d" 
              FontFamily="{DynamicResource MaterialDesignFont}"
@@ -20,7 +21,11 @@
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <Image Width="196" Height="140" Source="C:\Windows\System32\PerceptionSimulation\Assets\Pinch.png" Stretch="UniformToFill" />
+
+                                <Image x:Name="ImageExa" xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Expand}, Event=MouseEnter}"
+                                       xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource Contract}, Event=MouseLeave}"
+                                       Width="196" Height="140" Source="C:\Windows\System32\PerceptionSimulation\Assets\Pinch.png" Stretch="UniformToFill" />
+
                                 <Button Grid.Row="0" Margin="0,0,16,-20" HorizontalAlignment="Right" VerticalAlignment="Bottom" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
                                     <materialDesign:PackIcon Kind="ArrangeBringForward" />
                                 </Button>
@@ -34,7 +39,10 @@
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
-        <Button Name="ReloadBtn" Click="ReloadBtn_Click" HorizontalAlignment="Right" Width="34" Height="34" VerticalAlignment="Top" Margin="0 -60 20 0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
+        <Button xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Grow}, Event=MouseEnter}"
+                xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource Shrink}, Event=MouseLeave}"
+                xf:Animations.StartWith="{StaticResource Shrink}"
+            Name="ReloadBtn" Click="ReloadBtn_Click" HorizontalAlignment="Right" Width="41" Height="41" VerticalAlignment="Top" Margin="0 -45 20 0" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}">
             <materialDesign:PackIcon Width='34' Kind="Reload" />
         </Button>
         <TextBlock Name="NothingToSeeHere" Text="Nothing To See Here!" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Opacity="0" IsHitTestVisible="False"/>

@@ -20,8 +20,6 @@ namespace SDPromptM
         void CreateEventHandlers()
         {
             Placeholder.MouseDown += Placeholder_Click;
-            Placeholder.MouseEnter += Placeholder_MouseEnter;
-            Placeholder.MouseLeave += Placeholder_MouseLeave;
         }
         public Create()
         {
@@ -49,7 +47,6 @@ namespace SDPromptM
                     {
                         PlaceHolderText.Opacity = x * 2;
                         Placeholder.Opacity = 1 - x;
-                        ImageBlurAmount.Radius = x * 20;
                     }
                 };
 
@@ -72,7 +69,6 @@ namespace SDPromptM
                     {
                         PlaceHolderText.Opacity = 1 - y * 2;
                         Placeholder.Opacity = 0.5 + y;
-                        ImageBlurAmount.Radius = 10 - y * 20;
                     }
                 };
 
@@ -81,12 +77,12 @@ namespace SDPromptM
         }
         private void Placeholder_MouseEnter(object sender, RoutedEventArgs e)
         {
-            this.Cursor = Cursors.Hand;
+            //this.Cursor = Cursors.Hand;
             Placeholder_Shadow(true);
         }
         private void Placeholder_MouseLeave(object sender, RoutedEventArgs e)
         {
-            this.Cursor = Cursors.Arrow;
+            //this.Cursor = Cursors.Arrow;
             Placeholder_Shadow(false);
         }
         private void Placeholder_Click(object sender, RoutedEventArgs e)

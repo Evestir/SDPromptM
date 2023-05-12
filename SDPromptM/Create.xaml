@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:SDPromptM"
+             xmlns:xf="clr-namespace:XamlFlair;assembly=XamlFlair.WPF"
              mc:Ignorable="d" 
              FontFamily="{DynamicResource MaterialDesignFont}"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -62,10 +63,10 @@
                         <Grid HorizontalAlignment="Center">
                             <Border Name="Mask" Background="Black" BorderBrush="#2c3333" BorderThickness=".5" CornerRadius="6"/>
                             <StackPanel>
-                                <Image Name="Placeholder" Source="{StaticResource ImagePlaceHolder}" HorizontalAlignment="Center" Height="433" Width="320" VerticalAlignment="Center" Stretch="UniformToFill">
-                                    <Image.Effect>
-                                        <BlurEffect x:Name="ImageBlurAmount" Radius="0"/>
-                                    </Image.Effect>
+                                <Image MouseEnter="Placeholder_MouseEnter" MouseLeave="Placeholder_MouseLeave"  
+                                       xf:Animations.Primary="{xf:Animate BasedOn={StaticResource Blur}, Event=MouseEnter}"
+                                       xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource Unblur}, Event=MouseLeave}"
+                                       Name="Placeholder" Source="{StaticResource ImagePlaceHolder}" HorizontalAlignment="Center" Height="433" Width="320" VerticalAlignment="Center" Stretch="UniformToFill" Cursor="Hand">
                                 </Image>
                                 <StackPanel.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=Mask}" />

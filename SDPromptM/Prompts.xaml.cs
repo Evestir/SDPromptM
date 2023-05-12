@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MaterialDesignThemes.Wpf;
 using SDPromptM.src;
+using XamlFlair;
 
 namespace SDPromptM
 {
@@ -101,23 +102,34 @@ namespace SDPromptM
             // create the card control
             var card = new MaterialDesignThemes.Wpf.Card
             {
-                Width = 200,
-                Height = 400,
+                Width = 240,
+                Height = 450,
                 Foreground = new SolidColorBrush(Color.FromRgb(246, 232, 234)),
                 Margin = new Thickness(20),
-                Effect = new DropShadowEffect { BlurRadius = 40, Direction = 0, Opacity = 1.0, Color = Colors.Black }
+                Effect = new DropShadowEffect { BlurRadius = 40, Direction = 0, ShadowDepth = 0, Opacity = 0.4, Color = Colors.Black }
             };
 
             // create the card content
             var grid = new Grid();
-            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(200) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(300) });
             grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 
-            var image = new Image { Width = 200, Height = 200, Source = new BitmapImage(new Uri(imagePath)), Stretch = Stretch.UniformToFill };
-            grid.Children.Add(image);
+            var stackPanel = new StackPanel { Margin = new Thickness(8, 6, 8, 0) };
 
-            var button = new Button { Margin = new Thickness(0, 0, 16, -20), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom };
+            stackPanel.Children.Add(new TextBlock { FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Noto Sans Medium"), FontSize = 18, Text = title });
+            stackPanel.SetValue(Grid.RowProperty, 1);
+            stackPanel.Children.Add(new TextBlock { VerticalAlignment = VerticalAlignment.Center, Text = description, FontSize = 14, FontWeight = FontWeight.FromOpenTypeWeight(100), TextWrapping = TextWrapping.Wrap });
+            grid.Children.Add(stackPanel);
+
+            var new_grid = new Grid { Effect = new DropShadowEffect { BlurRadius = 40, ShadowDepth = 0, Direction = 0, Opacity = 1.0, Color = Colors.Black } };
+            var image = new Image { Width = 240, Source = new BitmapImage(new Uri(imagePath)), Stretch = Stretch.UniformToFill};
+            new_grid.Children.Add(image);
+            grid.Children.Add(new_grid);
+            XamlFlair.Animations.SetPrimary(image, Animations.GetPrimary(ImageExa));
+            XamlFlair.Animations.SetSecondary(image, Animations.GetSecondary(ImageExa));
+
+            var button = new Button { Margin = new Thickness(0, 0, 16, -20), HorizontalAlignment = HorizontalAlignment.Right, VerticalAlignment = VerticalAlignment.Bottom, Effect = new DropShadowEffect { BlurRadius = 40, ShadowDepth = 0, Direction = 0, Opacity = 1.0, Color = Colors.Black } };
             button.Style = (Style)Application.Current.Resources["MaterialDesignFloatingActionMiniSecondaryButton"];
             button.Content = new MaterialDesignThemes.Wpf.PackIcon { Kind = MaterialDesignThemes.Wpf.PackIconKind.ArrangeBringForward };
             grid.Children.Add(button);
@@ -137,15 +149,6 @@ namespace SDPromptM
 
                 Clipboard.SetText(negprompt);
             }
-
-            var stackPanel = new StackPanel { Margin = new Thickness(8, 6, 8, 0) };
-
-            GridLengthConverter gridLengthConverter = new GridLengthConverter();
-
-            stackPanel.Children.Add(new TextBlock { FontFamily = new FontFamily(new Uri("pack://application:,,,/"), "./Fonts/#Noto Sans Medium"), FontSize = 18, Text = title });
-            stackPanel.SetValue(Grid.RowProperty, 1);
-            stackPanel.Children.Add(new TextBlock { VerticalAlignment = VerticalAlignment.Center, Text = description, FontSize=14, FontWeight = FontWeight.FromOpenTypeWeight(100),TextWrapping = TextWrapping.Wrap });
-            grid.Children.Add(stackPanel);
 
             card.Content = grid;
             CardsHolder.Children.Add(card);

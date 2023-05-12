@@ -145,32 +145,36 @@ namespace SDPromptM
 
         private void PromptsRadio_Click(object sender, RoutedEventArgs e)
         {
-            if (PromptsPage.Opacity != (float)1)
-            {
-                PromptsPage.Visibility = Visibility.Visible;
+            //if (PromptsPage.Opacity != (float)1)
+            //{
+            //    PromptsPage.Visibility = Visibility.Visible;
 
-                Thread threandnfkasdf = new Thread(delegate ()
-                {
-                    LinearOpacityPages(0);
-                });
+            //    Thread threandnfkasdf = new Thread(delegate ()
+            //    {
+            //        LinearOpacityPages(0);
+            //    });
 
-                threandnfkasdf.Start();
-            }
+            //    threandnfkasdf.Start();
+            //}
+            PromptsPage.IsHitTestVisible = true;
+            CreationPage.IsHitTestVisible = false;
         }
 
         private void CreationRadio_Click(object sender, RoutedEventArgs e)
         {
-            if (CreationPage.Opacity != (float)1)
-            {
-                CreationPage.Visibility = Visibility.Visible;
+            //if (CreationPage.Opacity != (float)1)
+            //{
+            //    CreationPage.Visibility = Visibility.Visible;
 
-                Thread asfdmsadfke4qwf = new Thread(delegate ()
-                {
-                    LinearOpacityPages(1);
-                });
+            //    Thread asfdmsadfke4qwf = new Thread(delegate ()
+            //    {
+            //        LinearOpacityPages(1);
+            //    });
 
-                asfdmsadfke4qwf.Start();
-            }
+            //    asfdmsadfke4qwf.Start();
+            //}
+            CreationPage.IsHitTestVisible = true;
+            PromptsPage.IsHitTestVisible = false;
         }
     }
 }
