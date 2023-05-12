@@ -17,13 +17,12 @@
             </StackPanel>
         </GroupBox>
         <Grid Name="gridContainer" Margin="0 50 0 0">
-            <local:Prompts x:Name="PromptsPage" 
+            <local:Prompts x:Name="PromptsPage" Visibility="Collapsed"
                            xf:Animations.PrimaryBinding="{Binding IsChecked, ElementName=PromptsRadio}"
                            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}}"
                            xf:Animations.SecondaryBinding="{Binding IsChecked, ElementName=CreationRadio}"
-                           xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToRight}}" 
-                           xf:Animations.StartWith="{xf:Animate BasedOn={StaticResource FadeIn}, Delay=100}"/>
-            <local:Create x:Name="CreationPage"
+                           xf:Animations.Secondary="{xf:Animate BasedOn={StaticResource FadeOutAndSlideToRight}}" />
+            <local:Create x:Name="CreationPage" IsHitTestVisible="False"
                            xf:Animations.PrimaryBinding="{Binding IsChecked, ElementName=CreationRadio}"
                            xf:Animations.Primary="{xf:Animate BasedOn={StaticResource FadeInAndSlideFromLeft}}"
                            xf:Animations.SecondaryBinding="{Binding IsChecked, ElementName=PromptsRadio}"

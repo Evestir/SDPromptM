@@ -89,6 +89,23 @@ namespace SDPromptM
             timer.Start();
         }
 
+        private void dao()
+        {
+            Thread.Sleep(200);
+            this.Dispatcher.Invoke(() =>
+            {
+                while (true)
+                {
+                    if (PromptsPage.Visibility != Visibility.Visible)
+                    {
+                        PromptsPage.Visibility = Visibility.Visible;
+                        break;
+                    }
+                    Thread.Sleep(10);
+                }
+            });
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -100,6 +117,12 @@ namespace SDPromptM
             UseImmersiveDarkMode(hWnd, true);
 
             Showcase();
+
+            Thread threandnfkasdf = new Thread(delegate ()
+            {
+                dao();
+            });
+            threandnfkasdf.Start();
         }
         private void LinearOpacityPages(int ver)
         {
