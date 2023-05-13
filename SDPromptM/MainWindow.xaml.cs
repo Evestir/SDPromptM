@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -19,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Xml.Linq;
 using SDPromptM.src;
 
 namespace SDPromptM
@@ -28,12 +30,24 @@ namespace SDPromptM
     /// </summary>
     public partial class MainWindow : Window
     {
-        [DllImport("dwmapi.dll")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, [In] ref bool attrValue, int attrSize);
+        //[DllImport("dwmapi.dll")]
+        //private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, [In] ref bool attrValue, int attrSize);
+        //[DllImport("dwmapi.dll")]
+        //private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
 
         private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
         private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
         private const int DWMWA_CAPTION_COLOR = 35;
+
+        private static void SetTitleBarColor(IntPtr handle, int r, int g, int b)
+        {
+            [DllImport("dwmapi.dll")]
+            static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
+            var color = System.Drawing.Color.FromArgb(r, g, b);
+            int[] intArray = { (color.R >> 16) & 0xFF, (color.G >> 8) & 0xFF, color.B & 0xFF };
+            DwmSetWindowAttribute(handle, DWMWA_CAPTION_COLOR, intArray, 4);
+        }
 
         private static bool UseImmersiveDarkMode(IntPtr handle, bool enabled)
         {
@@ -46,6 +60,8 @@ namespace SDPromptM
                 }
 
                 bool value = enabled;
+                [DllImport("dwmapi.dll")]
+                static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, [In] ref bool attrValue, int attrSize);
 
                 int useImmersiveDarkMode = enabled ? 1 : 0;
                 if (DwmSetWindowAttribute(handle, (int)attribute, ref value, Marshal.SizeOf<bool>()) == 1) return true;
@@ -70,6 +86,8 @@ namespace SDPromptM
         {
             var timer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(10) };
             double x = 0;
+            IntPtr hWnd = new WindowInteropHelper(this).EnsureHandle();
+            bool FirstTime = false;
 
             timer.Tick += (s, e) =>
             {
@@ -82,6 +100,12 @@ namespace SDPromptM
                 }
                 else
                 {
+                    if (x > 0.1 && FirstTime == false)
+                    {
+                        UseImmersiveDarkMode(hWnd, true);
+                        FirstTime = true;
+                    }
+
                     Rec.Opacity = 1 - x;
                 }
             };
@@ -111,10 +135,6 @@ namespace SDPromptM
             InitializeComponent();
             CreateEventHandlers();
             this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
-
-            // Enalbe Dark Mode
-            IntPtr hWnd = new WindowInteropHelper(this).EnsureHandle();
-            UseImmersiveDarkMode(hWnd, true);
 
             Showcase();
 
