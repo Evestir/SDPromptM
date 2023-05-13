@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.ConstrainedExecution;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +23,8 @@ namespace SDPromptM.src
 {
     internal class Functions
     {
+        [DllImport("kernel32.dll")]
+        public static extern bool AllocConsole();
         public static void log(string content)
         {
             string targetPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\SDPromptM\\logs.txt";

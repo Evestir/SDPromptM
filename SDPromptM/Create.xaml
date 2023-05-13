@@ -26,13 +26,13 @@
                         </TextBox.Resources>
                     </TextBox>
 
-                    <TextBox Name="DescriptionField" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38 80 -15 0" Width="280" materialDesign:HintAssist.Hint="Description" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                    <TextBox Name="DescriptionField" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38 86 -15 0" Width="280" materialDesign:HintAssist.Hint="Description" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
                         <TextBox.Resources>
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#ffc7d7"/>
                         </TextBox.Resources>
                     </TextBox>
 
-                    <TextBox Name="PositivePrompt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38 140 -15 0" Width="280" materialDesign:HintAssist.Hint="Positive Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
+                    <TextBox Name="PositivePrompt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="38 142 -15 0" Width="280" materialDesign:HintAssist.Hint="Positive Prompt" FontSize="14" Style="{StaticResource MaterialDesignFloatingHintTextBox}" >
                         <TextBox.Resources>
                             <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#66b8ff"/>
                         </TextBox.Resources>
