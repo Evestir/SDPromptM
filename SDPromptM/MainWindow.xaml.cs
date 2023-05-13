@@ -101,7 +101,8 @@ namespace SDPromptM
                 {
                     if (x > 0 && FirstTime == false)
                     {
-                        SetTitleBarColor(hWnd, 32, 32, 32);
+                        UseImmersiveDarkMode(hWnd, true);
+                        //SetTitleBarColor(hWnd, 32, 32, 32);
                         FirstTime = true;
                     }
 
