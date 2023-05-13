@@ -33,7 +33,7 @@ namespace SDPromptM
         //[DllImport("dwmapi.dll")]
         //private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, [In] ref bool attrValue, int attrSize);
         //[DllImport("dwmapi.dll")]
-        //private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+        //private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize); 
 
         private const int DWMWA_USE_IMMERSIVE_DARK_MODE_BEFORE_20H1 = 19;
         private const int DWMWA_USE_IMMERSIVE_DARK_MODE = 20;
@@ -44,9 +44,8 @@ namespace SDPromptM
             [DllImport("dwmapi.dll")]
             static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
 
-            var color = System.Drawing.Color.FromArgb(r, g, b);
-            int[] intArray = { (color.R >> 16) & 0xFF, (color.G >> 8) & 0xFF, color.B & 0xFF };
-            DwmSetWindowAttribute(handle, DWMWA_CAPTION_COLOR, intArray, 4);
+            int[] colorstr = new int[] { 0x202020 };
+            DwmSetWindowAttribute(handle, DWMWA_CAPTION_COLOR, colorstr, 4);
         }
 
         private static bool UseImmersiveDarkMode(IntPtr handle, bool enabled)
@@ -100,9 +99,9 @@ namespace SDPromptM
                 }
                 else
                 {
-                    if (x > 0.1 && FirstTime == false)
+                    if (x > 0 && FirstTime == false)
                     {
-                        UseImmersiveDarkMode(hWnd, true);
+                        SetTitleBarColor(hWnd, 32, 32, 32);
                         FirstTime = true;
                     }
 
