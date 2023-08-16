@@ -94,7 +94,7 @@ namespace SDPromptM
             InitializeComponent();
 
             this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
-            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.NearestNeighbor);
+            RenderOptions.SetBitmapScalingMode(this, BitmapScalingMode.Fant);
 
             LoadForm();
         }

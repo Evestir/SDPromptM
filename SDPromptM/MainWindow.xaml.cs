@@ -99,12 +99,11 @@ namespace SDPromptM
                 }
                 else
                 {
-                    if (x > 0 && FirstTime == false)
-                    {
-                        UseImmersiveDarkMode(hWnd, true);
-                        //SetTitleBarColor(hWnd, 32, 32, 32);
-                        FirstTime = true;
-                    }
+                    //if (x > 0.1 && FirstTime == false)
+                    //{
+                    //    //SetTitleBarColor(hWnd, 32, 32, 32);
+                    //    FirstTime = true;
+                    //}
 
                     Rec.Opacity = 1 - x;
                 }
@@ -135,6 +134,7 @@ namespace SDPromptM
             InitializeComponent();
             CreateEventHandlers();
             this.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
+            UseImmersiveDarkMode(new WindowInteropHelper(this).EnsureHandle(), true);
 
             Showcase();
 
